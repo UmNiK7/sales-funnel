@@ -46,7 +46,7 @@ function formatNumber(value: number): string {
 
 function formatPercent(value: number): string {
 	if (!Number.isFinite(value)) return "0%";
-	return `${value.toFixed(value >= 10 ? 0 : 1)}%`;
+	return `${value.toFixed(value >= 10 ? 0 : 2)}%`;
 }
 
 export default function SalesFunnelApp() {
@@ -74,7 +74,6 @@ export default function SalesFunnelApp() {
 		});
 	}, [steps]);
 
-	const lastItem = data.length > 0 ? data[data.length - 1] : null;
 	const funnelHeight = data.length * SEGMENT_HEIGHT;
 	const canvasWidth = LEFT_SPACE + FUNNEL_WIDTH + RIGHT_SPACE;
 	const funnelLeft = LEFT_SPACE;
@@ -213,7 +212,6 @@ export default function SalesFunnelApp() {
 					</Card>
 
 					<Box
-						ref={exportRef}
 						sx={{
 							backgroundColor: "#ffffff",
 							borderRadius: 4,
@@ -225,16 +223,8 @@ export default function SalesFunnelApp() {
 							minHeight: 620,
 						}}
 					>
-						<Box sx={{ textAlign: "center", marginBottom: 6 }}>
-							<Box sx={{ fontSize: 34, fontWeight: 900, color: "#020617", lineHeight: 1.15 }}>
-								{title}
-							</Box>
-							<Box sx={{ marginTop: 1, fontSize: 14, color: "#64748b" }}>
-								Загальна конверсія: {formatPercent(lastItem?.totalConversion || 0)}
-							</Box>
-						</Box>
-
 						<Box
+							ref={exportRef}
 							sx={{
 								width: canvasWidth,
 								maxWidth: "100%",
